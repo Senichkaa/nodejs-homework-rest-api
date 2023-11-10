@@ -1,8 +1,6 @@
-// const fs = require('fs/promises')
-// const path = require('node:path')
-import fs from "fs/promises";
-import path from "node:path";
-import { nanoid } from "nanoid";
+const fs = require("fs/promises");
+const path = require("node:path");
+const { nanoid } = require("nanoid");
 
 const contactsPath = path.join(__dirname, "./contacts.json");
 
