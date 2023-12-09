@@ -55,14 +55,14 @@ const verify = async (req, res) => {
     verificationToken: "",
   });
 
-  res.json("Verification successfully");
+  res.json({ message: "Verification successfully" });
 };
 
 const resendVerify = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    throw httpError(404, "User not found");
+    throw httpError(400, "Missing required field email");
   }
   if (user.verify) {
     throw httpError(400, "Verification has been passed already");
@@ -86,7 +86,7 @@ const login = async (req, res) => {
     throw httpError(409, "Email or password is incorrect");
   }
   if (!user.verify) {
-    throw httpError(404, "User not found");
+    throw httpError(401, "User is not verified");
   }
 
   const comparePassword = await bcrypt.compare(password, user.password);
